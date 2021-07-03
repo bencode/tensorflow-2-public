@@ -48,16 +48,17 @@
 
             model.compile({
                 optimizer: tf.train.rmsprop(0.05),
-                loss: 'binaryCrossentropy'
+                loss: 'binaryCrossentropy',
+                metrics: ['accuracy']
             });
             
             await model.fitDataset(convertedTrainingData, {
-                epochs:100,
+                epochs: 100,
                 validationData: convertedTestingData,
                 callbacks:{
                     onEpochEnd: async(epoch, logs) => {
                         // console.log(logs);
-                        console.log("Epoch: " + epoch + " Loss: " + logs.loss);
+                        console.log("Epoch: " + epoch + " Loss: " + logs.loss + " Accuracy: " + logs.acc);
                     }
                 }
             });
